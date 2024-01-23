@@ -1,18 +1,43 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import toast from "react-hot-toast";
 
 const Register = () => {
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
+    const email = form.email.value;
     const role = form.role.value;
     const phone = form.phone.value;
     const password = form.password.value;
-    console.log(name, role, phone, password);
+    console.log(name, role, email, phone, password);
+
+    const userInfo = {
+      name,
+      role,
+      phone,
+      password,
+      email,
+    };
+    axiosPublic
+      .post("/users", userInfo)
+      .then((res) => {
+        console.log(res.data);
+
+        toast.success("User registered successfully");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("User was not registered");
+      });
   };
 
   return (
