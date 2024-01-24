@@ -1,16 +1,38 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
     console.log(email, password);
+
+    const userInfo = {
+      password,
+      email,
+    };
+    axiosPublic
+      .post("/jwt", userInfo)
+      .then((res) => {
+        console.log(res.data);
+
+        toast.success("User logged in successfully");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("User was not logged in");
+      });
   };
 
   return (

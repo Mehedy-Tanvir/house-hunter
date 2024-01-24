@@ -4,7 +4,7 @@ import axios from "axios";
 // import { useEffect } from "react";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://house-hunter-server-eight-theta.vercel.app",
   withCredentials: true,
 });
 const useAxiosSecure = () => {

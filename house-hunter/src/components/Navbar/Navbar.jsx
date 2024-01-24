@@ -69,7 +69,7 @@ const Navbar = () => {
         <div className="flex items-center gap-[10px] justify-center drop-shadow-sm">
           <img className="h-[24px]" src="/logo.svg" alt="logo" />
           <p className="text-[24px] text-[#222] font-bold">
-            TASK<span className="text-yellow-500">Y.</span>
+            RENT<span className="text-yellow-500">Y.</span>
           </p>
         </div>
         <ul className="lg:flex hidden items-center uppercase justify-between gap-[60px]">
